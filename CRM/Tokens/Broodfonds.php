@@ -16,9 +16,7 @@ class CRM_Tokens_Broodfonds {
     }
   }
 
-  protected static function geinteresseerden(&$values, $cids, $job = null, $tokens = array(), $context = null) {
-    $geinteresserden = '';
-
+  protected function geinteresseerden(&$values, $cids, $job = null, $tokens = array(), $context = null) {
     $cg = civicrm_api3('CustomGroup', 'getsingle', array('name' => 'Broodfonds'));
     $cf = civicrm_api3('CustomField', 'getsingle', array('custom_group_id' => $cg['id'], 'name' => 'Interesse'));
     $values = array(
