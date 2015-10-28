@@ -15,8 +15,8 @@ function tokens_civicrm_tokenValues(&$values, $cids, $job = null, $tokens = arra
     }
   }
 
-  $tokens = CRM_Tokens_Broodfonds::singleton();
-  $tokens->tokenValues($values, $cids, $job, $tokens, $context);
+  $broodfonds_tokens = CRM_Tokens_Broodfonds::singleton();
+  $broodfonds_tokens->tokenValues($values, $cids, $job, $tokens, $context);
 }
 
 function tokens_today(&$values, $cids, $job = null, $tokens = array(), $context = null) {
