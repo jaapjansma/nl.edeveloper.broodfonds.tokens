@@ -11,7 +11,7 @@ class CRM_Tokens_Broodfonds {
   public function tokenValues(&$values, $cids, $job = null, $tokens = array(), $context = null) {
     if (!empty($tokens['broodfonds'])) {
       if (in_array('geinteresseerden', $tokens['broodfonds']) || array_key_exists('geinteresseerden', $tokens['broodfonds'])) {
-        $this->geinteresserden($values, $cids, $job, $tokens, $context);
+        $this->geinteresseerden($values, $cids, $job, $tokens, $context);
       }
     }
   }
