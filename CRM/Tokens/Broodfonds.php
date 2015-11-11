@@ -9,10 +9,12 @@ class CRM_Tokens_Broodfonds {
   }
 
   public function tokenValues(&$values, $cids, $job = null, $tokens = array(), $context = null) {
-    if (!empty($tokens['broodfonds'])) {
-      if (in_array('geinteresseerden', $tokens['broodfonds']) || array_key_exists('geinteresseerden', $tokens['broodfonds'])) {
-        $this->geinteresserden($values, $cids, $job, $tokens, $context);
-      }
+    if (!is_array($cids)) {
+      $cids = array($cids);
+    }
+
+    if ($this->checkToken($tokens, 'geinteresseerden')) {
+      $this->geinteresserden($values, $cids, $job, $tokens, $context);
     }
   }
 
@@ -28,8 +30,32 @@ class CRM_Tokens_Broodfonds {
     $geinteresserden = CRM_Core_DAO::singleValueQuery($sql, $values);
 
     foreach($cids as $cid) {
-      $values[$cid]['broodfonds.geinteresseerden'] = $geinteresserden;
+      $this->setValue($values, $cid, 'broodfonds.geinteresseerden', $geinteresserden);
     }
+  }
+
+  protected function setValue(&$values, $cid, $key, $value) {
+    if (isset($values[$cid])) {
+      $values[$cid][$key] = $value;
+    }
+    else {
+      $values[$key] = $value;
+    }
+  }
+
+  protected function checkToken($tokens, $token) {
+    if (!empty($tokens['broodfonds'])) {
+      if (in_array($token, $tokens['broodfonds'])) {
+        return TRUE;
+      }
+      elseif (array_key_exists($token, $tokens['broodfonds'])) {
+        return TRUE;
+      }
+    }
+    if (count($tokens) == 0) {
+      return TRUE; //needed for scheduled reminders
+    }
+    return FALSE;
   }
 
   /**
