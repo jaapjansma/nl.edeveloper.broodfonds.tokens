@@ -14,7 +14,7 @@ class CRM_Tokens_Broodfonds {
     }
 
     if ($this->checkToken($tokens, 'geinteresseerden')) {
-      $this->geinteresserden($values, $cids, $job, $tokens, $context);
+      $this->geinteresseerden($values, $cids, $job, $tokens, $context);
     }
   }
 
